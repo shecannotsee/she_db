@@ -1,0 +1,3 @@
+[submodule "third-party/sheLog"]
+	path = third-party/sheLog
+	url = https://github.com/shecannotsee/sheLog
