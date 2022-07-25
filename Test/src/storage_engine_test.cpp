@@ -1,6 +1,14 @@
 #include "storage_engine_test.h"
 #include <stdio.h>
 
+storage_engine_test::storage_engine_test() {
+
+}
+
+storage_engine_test::~storage_engine_test() {
+
+}
+
 void storage_engine_test::t_write() {
   const int SIZE = 16;
   const char g_data[SIZE] = {0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x07,
@@ -60,6 +68,10 @@ void storage_engine_test::create_file() {
   char buff = 0x00;
   fwrite(&buff,sizeof(char),1,file_ptr);
   fclose(file_ptr);
-}
+};
+
+void storage_engine_test::_f() {
+
+};
 
 
