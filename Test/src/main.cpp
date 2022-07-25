@@ -3,9 +3,9 @@
 
 int main() {
   storage_engine_test test;
-  //test.t_wirite();
-  //test.t_read();
-  //test.t_find();
+  test.t_write();
+  test.t_read();
+  test.t_find();
   test.create_file();
   return 0;
 }

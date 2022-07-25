@@ -6,7 +6,7 @@ void storage_engine_test::t_write() {
   const char g_data[SIZE] = {0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x07,
                              0x08,0x09,0x0a,0x0b,0x0c,0x0d,0x0e,0x0f};
   FILE* write = nullptr;
-  write = fopen("./file/data","w+b");
+  write = fopen("../file/data","w+b");
   if (write!=nullptr) {
     for (auto i : g_data) {
       printf("%ld",fwrite(&g_data,sizeof(char),SIZE*2,write));
@@ -23,7 +23,7 @@ void storage_engine_test::t_read() {
   const char g_data[SIZE] = {0x00,0x01,0x02,0x03,0x04,0x05,0x06,0x07,
                              0x08,0x09,0x0a,0x0b,0x0c,0x0d,0x0e,0x0f};
   FILE* read = nullptr;
-  read = fopen("./file/data","r+b");
+  read = fopen("../file/data","r+b");
   char buff[SIZE] = {0};
   if (read!=nullptr) {
     fread(&buff,sizeof(char),SIZE,read);
@@ -39,7 +39,7 @@ void storage_engine_test::t_read() {
 
 void storage_engine_test::t_find() {
   FILE* find = nullptr ;
-  find = fopen("./file/data","rb");
+  find = fopen("../file/data","rb");
   char buff = 0x00;
   if (find!=nullptr) {
     //fseek(find,0,SEEK_SET);//指针移动到文件开头
@@ -55,7 +55,7 @@ void storage_engine_test::t_find() {
 
 void storage_engine_test::create_file() {
   FILE* file_ptr = nullptr ;
-  file_ptr = fopen("./file/4k_file","wb+");
+  file_ptr = fopen("../file/4k_file","wb+");
   fseek(file_ptr,1024*4-1,SEEK_SET);
   char buff = 0x00;
   fwrite(&buff,sizeof(char),1,file_ptr);
