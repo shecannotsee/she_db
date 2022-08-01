@@ -1,10 +1,9 @@
 #include <iostream>
-#include <sheLog/sheLog.hpp>
+#include "test.h"
 
 int main() {
-  sheLog::SheLog log("./","myLog");
-  log.logMessage(sheLog::logLevel::INFO,"message");
   // TODO:124
+  test();
   std::cout<<"hello sheDB\n";
   return 0;
 }
