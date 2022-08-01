@@ -46,3 +46,12 @@
 4kb = 4096Byte = (4096x8)
 总共 32768 位,需要使用15位二进制保存
 
+int8_t    : typedef signed    char;
+uint8_t   : typedef unsigned  char;
+int16_t   : typedef signed    short ;
+uint16_t  : typedef unsigned  short ;
+int32_t   : typedef signed    int;
+uint32_t  : typedef unsigned  int;
+int64_t   : typedef signed    long long;
+uint64_t  : typedef unsigned  long long;
+
