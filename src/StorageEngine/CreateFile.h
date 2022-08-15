@@ -14,7 +14,7 @@ class CreateFile {
   //默认表大小为4k
   CreateFile();
   //指定创建一定大小的表
-  CreateFile(const int& size_with_K);
+  explicit CreateFile(const int& size_with_K);
   ~CreateFile();
  public:
   //创建表结构
