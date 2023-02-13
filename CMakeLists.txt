@@ -4,7 +4,7 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 ############################################################
 set(PROJECT_NAME "sheDB")
-set(3RD_DIR "./third-party")
+set(3RD_DIR "third_party")
 set(FRAMEWORK_DIR "./framework")
 ############################################################
 project(${PROJECT_NAME})
