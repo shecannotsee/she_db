@@ -1,17 +1,69 @@
-############################################################
-cmake_minimum_required(VERSION 3.10.0)
+########################################################################################################################
+cmake_minimum_required(VERSION 3.10)
+
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
-############################################################
-set(PROJECT_NAME "sheDB")
-set(3RD_DIR "third_party")
-set(FRAMEWORK_DIR "./framework")
-############################################################
+set(CMAKE_CXX_FLAGS "-g")# to deal clion debug invalid
+
+set(PROJECT_NAME "sheDB" VERSION 0.0.1)
+set(CMAKE_BUILD_TYPE "Debug") # Release or Debug or MinSizeRel
 project(${PROJECT_NAME})
-############################################################
-include_directories(${3RD_DIR})
-############################################################
+
+########################################################################################################################
+set(unit_test "ON")
+
+# test set
+if (unit_test STREQUAL "ON")
+    set(unit_test_name "${PROJECT_NAME}_test")
+else()
+    message(STATUS "CMakeLists.txt error")
+endif ()
+#message(STATUS "${unit_test_name}")
+
+########################################################################################################################
+# set path
+
+########################################################################################################################
+# include
+include_directories(
+        ${CMAKE_SOURCE_DIR}/src)
+# lib
+link_directories(
+)
+
+########################################################################################################################
 file(GLOB_RECURSE SRC "${CMAKE_SOURCE_DIR}/src/*")
-add_executable(${PROJECT_NAME} ${SRC})
-############################################################
-target_link_libraries(${PROJECT_NAME} pthread)
+# test target
+if (unit_test STREQUAL "ON")
+    file(GLOB_RECURSE TEST_SRC "${CMAKE_SOURCE_DIR}/test/*")
+    list(REMOVE_ITEM SRC "${CMAKE_SOURCE_DIR}/src/TaskControl.cpp") # Exclude specific files
+    add_executable(${unit_test_name} ${TEST_SRC} ${SRC})
+    target_link_libraries(${unit_test_name} "-pthread")
+else()
+    add_executable(${PROJECT_NAME} ${TEST_SRC} ${SRC})
+    target_link_libraries(${PROJECT_NAME} "-pthread")
+endif ()
+
+########################################################################################################################
+# local debug
+set(CMAKE_INSTALL_PREFIX "./")
+# Release Code
+#set(CMAKE_INSTALL_PREFIX "/")
+
+message(STATUS "The default installation path is ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "Please use \"make install DESTDIR=./PATH\" to set install path")
+
+if (unit_test STREQUAL "ON")
+    install(TARGETS
+            ${unit_test_name}
+            DESTINATION
+            ${PROJECT_NAME}/bin
+            )
+else()
+    install(TARGETS
+            ${PROJECT_NAME}
+            DESTINATION
+            ${PROJECT_NAME}/bin
+            )
+endif ()
+
