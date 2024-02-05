@@ -29,8 +29,50 @@ class data_type_operator {
   std::string file_path_;
   std::unique_ptr<FILE, decltype(&fclose)> p_file_;
 
- private:
  public:  // basic data types
+  template <typename type>
+  typename type::type read(const int offset) const noexcept {
+    union {
+      typename type::type real;
+      char c[type::size];
+    } tmp;
+    // move ptr
+    if (fseek(p_file_.get(), offset, SEEK_SET) != 0) {
+      throw std::runtime_error("Error seeking to offset");
+    }
+    // read data
+    if (fread(&tmp.c, sizeof(char), type::size, p_file_.get()) != type::size) {
+      throw std::runtime_error("Error writing to file");
+    }
+    // init ptr
+    if (fseek(p_file_.get(), NULL, SEEK_SET) != 0) {
+      throw std::runtime_error("Error seeking to offset");
+    }
+    return tmp.real;
+  }
+
+  template <typename type>
+  void write(const int offset, typename type::type input_t) const noexcept {
+    union {
+      typename type::type real;
+      char c[type::size];
+    } tmp;
+    tmp.real         = input_t;
+    const auto input = tmp.c;
+    // move ptr
+    if (fseek(p_file_.get(), offset, SEEK_SET) != 0) {
+      throw std::runtime_error("Error seeking to offset");
+    }
+    // write data
+    if (fwrite(input, sizeof(char), type::size, p_file_.get()) != type::size) {
+      throw std::runtime_error("Error writing to file");
+    }
+    // init ptr
+    if (fseek(p_file_.get(), NULL, SEEK_SET) != 0) {
+      throw std::runtime_error("Error seeking to offset");
+    }
+  }
+
   bool read_boolean(int offset) const noexcept;
   int8_t read_int8(int offset) const noexcept;
   int16_t read_int16(int offset) const noexcept;
