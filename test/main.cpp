@@ -1,10 +1,15 @@
 //
 // Created by shecannotsee on 24-2-5.
 //
-#include <she_test.h>
+#include <interface.h>  // she_log
+
+#include "test_suite.h"
 
 int main() {
-  using namespace  she_test::print_color;
+  using namespace she_test::print_color;
+  using log = she_log::interface;
+  log test_log("test_log.txt");
+  test_log.TRACE("TRACE test");
   std::cout << YELLOW_COLOR << "test start\n" << RESET_COLOR;
 
   std::cout << YELLOW_COLOR << "test start\n" << RESET_COLOR;
