@@ -73,22 +73,6 @@ class data_type_operator {
     }
   }
 
-  bool read_boolean(int offset) const noexcept;
-  int8_t read_int8(int offset) const noexcept;
-  int16_t read_int16(int offset) const noexcept;
-  int32_t read_int32(int offset) const noexcept;
-  int64_t read_int64(int offset) const noexcept;
-  float read_float32(int offset) const noexcept;
-  double read_float64(int offset) const noexcept;
-
-  void write_boolean(int offset, bool) const noexcept;
-  void write_int8(int offset, int8_t) const noexcept;
-  void write_int16(int offset, int16_t) const noexcept;
-  void write_int32(int offset, int32_t) const noexcept;
-  void write_int64(int offset, int64_t) const noexcept;
-  void write_float32(int offset, float) const noexcept;
-  void write_float64(int offset, double) const noexcept;
-
  public:  // complex data types
 };
 

@@ -36,35 +36,27 @@ bool read_data() {
   const she_db::data_type_operator test_target(std::move(file_path));
 
   /* bool:0, size1 */ {
-    bool expect = true;
-    test_target.write_boolean(0, expect);
-    auto res = test_target.read_boolean(0);
-    if (expect != res) {
-      std::cout << "bool(false) failed\n";
+    using test_type = she_db::boolean;
+    //
+
+    constexpr int offset = 1;
+    // test
+    test_type::type target = 0;
+    test_type::type res;
+
+    target = true;
+    test_target.write<test_type>(offset, target);
+    res = test_target.read<test_type>(offset);
+    if (target != res) {
+      std::cout << "boolean(true) failed\n";
       throw std::runtime_error("");
     }
 
-    expect = false;
-    test_target.write_boolean(0, expect);
-    res = test_target.read_boolean(0);
-    if (expect != res) {
-      std::cout << "bool(false) failed\n";
-      throw std::runtime_error("");
-    }
-    // template
-    expect = true;
-    test_target.write<she_db::boolean>(0, expect);
-    res = test_target.read<she_db::boolean>(0);
-    if (expect != res) {
-      std::cout << "bool(false) failed\n";
-      throw std::runtime_error("");
-    }
-
-    expect = false;
-    test_target.write<she_db::boolean>(0, expect);
-    res = test_target.read<she_db::boolean>(0);
-    if (expect != res) {
-      std::cout << "bool(false) failed\n";
+    target = false;
+    test_target.write<test_type>(offset, target);
+    res = test_target.read<test_type>(offset);
+    if (target != res) {
+      std::cout << "boolean(false) failed\n";
       throw std::runtime_error("");
     }
   }
