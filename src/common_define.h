@@ -21,20 +21,20 @@ enum class data_type : int {
   string  = 8,
 };
 
-template <typename T, T V, int s>
+template <data_type she_type, typename real_type, int byte_size>
 struct integral_constant {
-  constexpr static T value  = V;
-  constexpr static int size = s;
-  using type                = T;
+  constexpr static data_type value  = she_type;
+  constexpr static int size = byte_size;
+  using type                = real_type;
 };
 
-using boolean = integral_constant<data_type, data_type::boolean, 1>;
-using int8    = integral_constant<data_type, data_type::int8   , 1>;
-using int16   = integral_constant<data_type, data_type::int16  , 2>;
-using int32   = integral_constant<data_type, data_type::int32  , 4>;
-using int64   = integral_constant<data_type, data_type::int64  , 8>;
-using float32 = integral_constant<data_type, data_type::float32, 4>;
-using float64 = integral_constant<data_type, data_type::float64, 8>;
+using boolean = integral_constant<data_type::boolean, bool,    1>;
+using int8    = integral_constant<data_type::int8,    int8_t,  1>;
+using int16   = integral_constant<data_type::int16,   int16_t, 2>;
+using int32   = integral_constant<data_type::int32,   int32_t, 4>;
+using int64   = integral_constant<data_type::int64,   int64_t, 8>;
+using float32 = integral_constant<data_type::float32, float,   4>;
+using float64 = integral_constant<data_type::float64, double,  8>;
 
 }  // namespace she_db
 
