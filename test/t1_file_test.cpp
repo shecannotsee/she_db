@@ -32,16 +32,15 @@ bool create() {
 
 bool read_data() {
   std::string file_path = she_db::prefix_path + she_db::createFile<1>();
-  std::cout << "Before move: " << file_path << std::endl;
-  she_db::data_type_operator test_target(std::move(file_path));
-  std::cout << "After move: " << file_path << std::endl;
-  /* bool:0 */ {
+  const she_db::data_type_operator test_target(std::move(file_path));
+
+  /* bool:0, size1 */ {
     bool a = true;
     test_target.write_boolean(0, a);
     auto res = test_target.read_boolean(0);
     if (a != res) {
       std::cout << "bool(false) failed\n";
-      throw;
+      throw std::runtime_error("");
     }
 
     a = false;
@@ -49,7 +48,43 @@ bool read_data() {
     res = test_target.read_boolean(0);
     if (a != res) {
       std::cout << "bool(false) failed\n";
+      throw std::runtime_error("");
+    }
+  }
+  /* int8:1, size1 */ {
+    int8_t target = 0;
+    auto res      = test_target.read_int8(1);
+    if (target != res) {
+      std::cout << "int8_t(0) failed\n";
       throw;
+    }
+
+    for (int i = 0; i < 128; i++) {
+      target = i;
+      test_target.write_int8(1, target);
+      res = test_target.read_int8(1);
+      if (target != res) {
+        std::cout << "int8_t(" << i << ") failed\n";
+        throw std::runtime_error("");
+      }
+    }
+  }
+  /* int16:2, size2*/ {
+    int16_t target = 0;
+    auto res       = test_target.read_int16(2);
+    if (target != res) {
+      std::cout << "int16_t(0) failed\n" << target << "?" << res << "\n";
+      throw std::runtime_error("");
+    }
+
+    for (int i = 0; i < 32768; i++) {
+      target = i;
+      test_target.write_int16(2, target);
+      res = test_target.read_int16(2);
+      if (target != res) {
+        std::cout << "int16_t(" << i << ") failed\n";
+        throw std::runtime_error("");
+      }
     }
   }
 

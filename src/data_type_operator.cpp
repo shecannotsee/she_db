@@ -34,17 +34,57 @@ bool data_type_operator::read_boolean(const int offset) const noexcept {
 }
 
 int8_t data_type_operator::read_int8(int offset) const noexcept {
+  union {
+    int8_t _1;
+    char _2[1];
+  } tmp;
+  // move ptr
+  if (fseek(p_file_.get(), offset, SEEK_SET) != 0) {
+    throw std::runtime_error("Error seeking to offset");
+  }
+  // read data
+  if (fread(&tmp._2, sizeof(char), int8::size, p_file_.get()) != int8::size) {
+    throw std::runtime_error("Error writing to file");
+  }
+  // init ptr
+  if (fseek(p_file_.get(), NULL, SEEK_SET) != 0) {
+    throw std::runtime_error("Error seeking to offset");
+  }
+  return tmp._1;
 }
+
 int16_t data_type_operator::read_int16(int offset) const noexcept {
+  union {
+    int16_t _1;
+    char _2[2];
+  } tmp;
+  // move ptr
+  if (fseek(p_file_.get(), offset, SEEK_SET) != 0) {
+    throw std::runtime_error("Error seeking to offset");
+  }
+  // read data
+  if (fread(&tmp._2, sizeof(char), int16::size, p_file_.get()) != int16::size) {
+    throw std::runtime_error("Error writing to file");
+  }
+  // init ptr
+  if (fseek(p_file_.get(), NULL, SEEK_SET) != 0) {
+    throw std::runtime_error("Error seeking to offset");
+  }
+  return tmp._1;
 }
+
 int32_t data_type_operator::read_int32(int offset) const noexcept {
 }
+
 int64_t data_type_operator::read_int64(int offset) const noexcept {
 }
+
 float data_type_operator::read_float32(int offset) const noexcept {
 }
+
 double data_type_operator::read_float64(int offset) const noexcept {
 }
+
 void data_type_operator::write_boolean(int offset, bool input_t) const noexcept {
   union {
     bool _1;
