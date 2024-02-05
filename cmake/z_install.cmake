@@ -19,7 +19,7 @@ install(TARGETS
 if (generate_lib STREQUAL "ON")
     # include install
     install(FILES
-        ${CMAKE_SOURCE_DIR}/src/base64.h # source head
+        ${CMAKE_SOURCE_DIR}/src/she_db.h # source head
         DESTINATION # to
         ${PROJECT_NAME}/include # target dir
         )
