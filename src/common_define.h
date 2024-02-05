@@ -6,7 +6,6 @@
 #define COMMON_DEFINE_H
 
 #include <string>
-#include <type_traits>
 
 namespace she_db {
 const std::string prefix_path = "../store/";
