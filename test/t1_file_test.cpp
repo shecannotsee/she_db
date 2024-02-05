@@ -6,6 +6,7 @@
 #include <sys/stat.h>
 
 #include <iostream>
+#include <limits>
 
 #include "data_type_operator.h"
 #include "she_db.h"
@@ -35,34 +36,52 @@ bool read_data() {
   const she_db::data_type_operator test_target(std::move(file_path));
 
   /* bool:0, size1 */ {
-    bool a = true;
-    test_target.write_boolean(0, a);
+    bool expect = true;
+    test_target.write_boolean(0, expect);
     auto res = test_target.read_boolean(0);
-    if (a != res) {
+    if (expect != res) {
       std::cout << "bool(false) failed\n";
       throw std::runtime_error("");
     }
 
-    a = false;
-    test_target.write_boolean(0, a);
+    expect = false;
+    test_target.write_boolean(0, expect);
     res = test_target.read_boolean(0);
-    if (a != res) {
+    if (expect != res) {
+      std::cout << "bool(false) failed\n";
+      throw std::runtime_error("");
+    }
+    // template
+    expect = true;
+    test_target.write<she_db::boolean>(0, expect);
+    res = test_target.read<she_db::boolean>(0);
+    if (expect != res) {
+      std::cout << "bool(false) failed\n";
+      throw std::runtime_error("");
+    }
+
+    expect = false;
+    test_target.write<she_db::boolean>(0, expect);
+    res = test_target.read<she_db::boolean>(0);
+    if (expect != res) {
       std::cout << "bool(false) failed\n";
       throw std::runtime_error("");
     }
   }
   /* int8:1, size1 */ {
-    int8_t target = 0;
-    auto res      = test_target.read_int8(1);
-    if (target != res) {
-      std::cout << "int8_t(0) failed\n";
-      throw;
-    }
+    using test_type = she_db::int8;
+    //
+    auto min             = std::numeric_limits<test_type::type>::min();
+    auto max             = std::numeric_limits<test_type::type>::max();
+    constexpr int offset = 1;
+    // test
+    test_type::type target = 0;
+    test_type::type res;
 
-    for (int i = 0; i < 128; i++) {
+    for (test_type::type i = min; i < max; i++) {
       target = i;
-      test_target.write_int8(1, target);
-      res = test_target.read_int8(1);
+      test_target.write<test_type>(offset, target);
+      res = test_target.read<test_type>(offset);
       if (target != res) {
         std::cout << "int8_t(" << i << ") failed\n";
         throw std::runtime_error("");
@@ -70,19 +89,41 @@ bool read_data() {
     }
   }
   /* int16:2, size2*/ {
-    int16_t target = 0;
-    auto res       = test_target.read_int16(2);
-    if (target != res) {
-      std::cout << "int16_t(0) failed\n" << target << "?" << res << "\n";
-      throw std::runtime_error("");
-    }
+    using test_type = she_db::int16;
+    //
+    auto min             = std::numeric_limits<test_type::type>::min();
+    auto max             = std::numeric_limits<test_type::type>::max();
+    constexpr int offset = 1;
+    // test
+    test_type::type target = 0;
+    test_type::type res;
 
-    for (int i = 0; i < 32768; i++) {
+    for (test_type::type i = min; i < max; i++) {
       target = i;
-      test_target.write_int16(2, target);
-      res = test_target.read_int16(2);
+      test_target.write<test_type>(offset, target);
+      res = test_target.read<test_type>(offset);
       if (target != res) {
         std::cout << "int16_t(" << i << ") failed\n";
+        throw std::runtime_error("");
+      }
+    }
+  }
+  /* int32:4, size4*/ {
+    using test_type = she_db::int32;
+    //
+    auto min             = std::numeric_limits<test_type::type>::min();
+    auto max             = std::numeric_limits<test_type::type>::max();
+    constexpr int offset = 1;
+    // test
+    test_type::type target = 0;
+    test_type::type res;
+
+    for (test_type::type i = min; i < max; i++) {
+      target = i;
+      test_target.write<test_type>(offset, target);
+      res = test_target.read<test_type>(offset);
+      if (target != res) {
+        std::cout << "int32_t(" << i << ") failed\n";
         throw std::runtime_error("");
       }
     }
