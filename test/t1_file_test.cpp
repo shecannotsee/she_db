@@ -31,16 +31,33 @@ bool create() {
 }
 
 bool read_data() {
-  std::string file_path = she_db::createFile<1>();
+  std::string file_path = she_db::prefix_path + she_db::createFile<1>();
   std::cout << "Before move: " << file_path << std::endl;
   she_db::data_type_operator test_target(std::move(file_path));
   std::cout << "After move: " << file_path << std::endl;
+  /* bool:0 */ {
+    bool a = true;
+    test_target.write_boolean(0, a);
+    auto res = test_target.read_boolean(0);
+    if (a != res) {
+      std::cout << "bool(false) failed\n";
+      throw;
+    }
 
-  return false;
+    a = false;
+    test_target.write_boolean(0, a);
+    res = test_target.read_boolean(0);
+    if (a != res) {
+      std::cout << "bool(false) failed\n";
+      throw;
+    }
+  }
+
+  return true;
 }
 
 bool write_data() {
-  return false;
+  return true;
 }
 
 }  // namespace file
