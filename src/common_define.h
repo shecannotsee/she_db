@@ -8,7 +8,8 @@
 #include <string>
 
 namespace she_db {
-const std::string prefix_path = "../store/";
+const std::string prefix_path       = "../store/";
+const std::string initial_file_name = "initial.she_db";
 
 enum class db_data_type : int {
   boolean = 1,
@@ -23,9 +24,9 @@ enum class db_data_type : int {
 
 template <db_data_type she_type, typename real_type, int byte_size>
 struct integral_constant {
-  constexpr static db_data_type value  = she_type;
-  constexpr static int size = byte_size;
-  using type                = real_type;
+  constexpr static db_data_type value = she_type;
+  constexpr static int size           = byte_size;
+  using type                          = real_type;
 };
 
 using she_boolean = integral_constant<db_data_type::boolean, bool,    1>;
