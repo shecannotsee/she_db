@@ -183,8 +183,5 @@ bool read_and_write_data() {
   return true;
 }
 
-bool write_data() {
-  return true;
-}
 
 }  // namespace file
