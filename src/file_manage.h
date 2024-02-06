@@ -9,7 +9,7 @@
 
 namespace she_db {
 
-enum class file_type : int {
+enum class file_type : int8_t {
   initial         = 1,
   operator_logger = 2,
   table_struct    = 3,
