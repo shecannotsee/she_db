@@ -14,7 +14,7 @@ class test_suite {
  public:
   static void init() {
     test_case_manager::add("file", "create", file::create);
-    test_case_manager::add("file", "read_data", file::read_data);
+    test_case_manager::add("file", "read_data", file::read_and_write_data);
     test_case_manager::add("file", "write_data", file::write_data);
   }
 };

@@ -6,7 +6,7 @@
 #define T1_FILE_TEST_H
 namespace file {
 bool create();
-bool read_data();
+bool read_and_write_data();
 bool write_data();
 }  // namespace file
 
