@@ -9,6 +9,7 @@
 #include <limits>
 
 #include "data_type_operator.h"
+#include "file_manage.h"
 #include "she_db.h"
 
 namespace file {
@@ -27,12 +28,12 @@ bool check_file_size(const std::string& file_name) {
 }  // namespace
 
 bool create() {
-  const auto file_name = she_db::createFile<5>();
+  const auto file_name = she_db::create_file<5>("file_create");
   return check_file_size<5 * 1024>(she_db::prefix_path + file_name);
 }
 
 bool read_and_write_data() {
-  std::string file_path = she_db::prefix_path + she_db::createFile<1>();
+  std::string file_path = she_db::prefix_path + she_db::create_file<1>("file_read_and_write_data");
   const she_db::data_type_operator test_target(std::move(file_path));
   /* 0 1  2  2  4  5  6  7  8  9 10 11 12 13 14 15 16 17 */
   /* 0 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 */
@@ -183,5 +184,10 @@ bool read_and_write_data() {
   return true;
 }
 
+bool manage() {
+  using namespace she_db;
+  file_manage test_target;
+  return true;
+}
 
 }  // namespace file

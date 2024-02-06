@@ -7,7 +7,7 @@
 namespace file {
 bool create();
 bool read_and_write_data();
-bool write_data();
+bool manage();
 }  // namespace file
 
 #endif  // T1_FILE_TEST_H
