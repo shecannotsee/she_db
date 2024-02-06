@@ -38,7 +38,7 @@ bool read_and_write_data() {
   /* 0 0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 */
   /* b 8 16 16 32 32 32 32 64 64 64 64 64 64 64 64 f3 f3 */
   /* bool:0, size1 */ {
-    using test_type      = she_db::boolean;
+    using test_type      = she_db::she_boolean;
     constexpr int offset = 0;
     // test
     test_type::type target;
@@ -61,7 +61,7 @@ bool read_and_write_data() {
     }
   }
   /* int8:1, size1 */ {
-    using test_type = she_db::int8;
+    using test_type = she_db::she_int8;
     //
     auto min             = std::numeric_limits<test_type::type>::min();
     auto max             = std::numeric_limits<test_type::type>::max();
@@ -81,7 +81,7 @@ bool read_and_write_data() {
     }
   }
   /* int16:2, size2 */ {
-    using test_type      = she_db::int16;
+    using test_type      = she_db::she_int16;
     auto min             = std::numeric_limits<test_type::type>::min();
     auto max             = std::numeric_limits<test_type::type>::max();
     constexpr int offset = 2;
@@ -100,7 +100,7 @@ bool read_and_write_data() {
     }
   }
   /* int32:4, size4 */ {
-    using test_type = she_db::int32;
+    using test_type = she_db::she_int32;
 
     auto min             = std::numeric_limits<test_type::type>::min();
     auto max             = std::numeric_limits<test_type::type>::max();
@@ -120,7 +120,7 @@ bool read_and_write_data() {
     }
   }
   /* int64:8, size8 */ {
-    using test_type = she_db::int32;
+    using test_type = she_db::she_int32;
     //
     auto min             = std::numeric_limits<test_type::type>::min();
     auto max             = std::numeric_limits<test_type::type>::max();
@@ -140,7 +140,7 @@ bool read_and_write_data() {
     }
   }
   /* float32:16, size4 */ {
-    using test_type = she_db::float32;
+    using test_type = she_db::she_float32;
     //
     auto min             = std::numeric_limits<test_type::type>::min();
     auto max             = std::numeric_limits<test_type::type>::max();
@@ -160,7 +160,7 @@ bool read_and_write_data() {
     }
   }
   /* float64:20, size8 */ {
-    using test_type = she_db::float64;
+    using test_type = she_db::she_float64;
     //
     auto min             = std::numeric_limits<test_type::type>::min();
     auto max             = std::numeric_limits<test_type::type>::max();

@@ -13,8 +13,9 @@ namespace she_test {
 class test_suite {
  public:
   static void init() {
-    test_case_manager::add("file", "create", file::create);
-    test_case_manager::add("file", "read_and_write_data", file::read_and_write_data);
+    using namespace test_case_manager;
+    add("file", "create", file::create);
+    add("file", "read_and_write_data", file::read_and_write_data);
   }
 };
 }  // namespace she_test
