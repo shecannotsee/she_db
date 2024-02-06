@@ -7,18 +7,22 @@
 
 #include <she_test.h>
 
-#include "t1_file_test.h"
-#include "t2_table.h"
+#include "test_case/create_file.h"
+#include "test_case/data_type_operator.h"
+#include "test_case/file_manage.h"
+#include "test_case/sys_api_encapsulation/file.h"
+#include "test_case/sys_api_encapsulation/read.h"
+#include "test_case/sys_api_encapsulation/seek.h"
+#include "test_case/sys_api_encapsulation/write.h"
 
 namespace she_test {
 class test_suite {
  public:
   static void init() {
     using namespace test_case_manager;
-    add("file", "create", file::create);
-    add("file", "read_and_write_data", file::read_and_write_data);
-    add("file", "manage", file::manage);
-    add("table", "store", table::store);
+    add("create_file", "test", create_file::test);
+    add("data_type_operator", "read_and_write_data", data_type_operator::read_and_write_data);
+    add("file_manage", "test", file_manage::test);
   }
 };
 }  // namespace she_test

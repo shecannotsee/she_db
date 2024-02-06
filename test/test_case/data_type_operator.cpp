@@ -1,38 +1,14 @@
 //
-// Created by shecannotsee on 24-2-5.
+// Created by shecannotsee on 24-2-6.
 //
-#include "t1_file_test.h"
-
-#include <sys/stat.h>
-
-#include <iostream>
-#include <limits>
 
 #include "data_type_operator.h"
-#include "file_manage.h"
-#include "she_db.h"
 
-namespace file {
-namespace {
-template <long long file_size>
-bool check_file_size(const std::string& file_name) {
-  struct stat file_stat;
+#include <string>
 
-  if (stat(file_name.c_str(), &file_stat) != 0) {
-    return false;
-  }
+#include <she_db.h>
 
-  // check size
-  return file_stat.st_size == file_size;
-}
-}  // namespace
-
-bool create() {
-  const auto file_name = she_db::create_file<5>("file_create");
-  return check_file_size<5 * 1024>(she_db::prefix_path + file_name);
-}
-
-bool read_and_write_data() {
+bool data_type_operator::read_and_write_data() {
   std::string file_path = she_db::prefix_path + she_db::create_file<1>("file_read_and_write_data");
   const she_db::data_type_operator test_target(std::move(file_path));
   /* 0 1  2  2  4  5  6  7  8  9 10 11 12 13 14 15 16 17 */
@@ -183,11 +159,3 @@ bool read_and_write_data() {
 
   return true;
 }
-
-bool manage() {
-  using namespace she_db;
-  file_manage test_target;
-  return true;
-}
-
-}  // namespace file
