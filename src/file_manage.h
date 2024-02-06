@@ -10,10 +10,10 @@
 namespace she_db {
 
 enum class file_type : int {
-  initial         = 0,
-  operator_logger = 1,
-  table_struct    = 2,
-  data_storage    = 3,
+  initial         = 1,
+  operator_logger = 2,
+  table_struct    = 3,
+  data_storage    = 4,
 
   test = 127,
 };
