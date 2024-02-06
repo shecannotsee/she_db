@@ -7,6 +7,7 @@
 
 #include "common_define.h"
 #include "create_file.h"
+#include "data_type_operator.h"
 #include "file_manage.h"
 #include "table.h"
 
