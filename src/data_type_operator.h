@@ -45,7 +45,7 @@ class data_type_operator {
       throw std::runtime_error("Error writing to file");
     }
     // init ptr
-    if (fseek(p_file_.get(), NULL, SEEK_SET) != 0) {
+    if (fseek(p_file_.get(), 0, SEEK_SET) != 0) {
       throw std::runtime_error("Error seeking to offset");
     }
     return tmp.real;
@@ -68,7 +68,7 @@ class data_type_operator {
       throw std::runtime_error("Error writing to file");
     }
     // init ptr
-    if (fseek(p_file_.get(), NULL, SEEK_SET) != 0) {
+    if (fseek(p_file_.get(), 0, SEEK_SET) != 0) {
       throw std::runtime_error("Error seeking to offset");
     }
   }
