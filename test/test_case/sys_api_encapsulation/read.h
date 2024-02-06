@@ -5,6 +5,9 @@
 #ifndef T_READ_H
 #define T_READ_H
 
-class read {};
+class read {
+ public:
+  static bool test();
+};
 
 #endif  // T_READ_H

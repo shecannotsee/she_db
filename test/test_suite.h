@@ -23,6 +23,8 @@ class test_suite {
     add("create_file", "test", create_file::test);
     add("data_type_operator", "read_and_write_data", data_type_operator::read_and_write_data);
     add("file_manage", "test", file_manage::test);
+    add("sys_api_encapsulation:file", "test", file::test);
+    add("sys_api_encapsulation:read", "test", read::test);
   }
 };
 }  // namespace she_test

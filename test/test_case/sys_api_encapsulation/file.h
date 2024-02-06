@@ -5,6 +5,9 @@
 #ifndef T_FILE_H
 #define T_FILE_H
 
-class file {};
+class file {
+ public:
+  static bool test();
+};
 
 #endif  // T_FILE_H
