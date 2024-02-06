@@ -18,7 +18,7 @@ class write {
  public:
   write() = delete;
   explicit write(const std::string&) noexcept;
-  ~write() noexcept;
+  ~write() = default;
   // copy:off
   write(const write&)            = delete;
   write& operator=(const write&) = delete;
@@ -27,7 +27,7 @@ class write {
   write& operator=(write&&) = default;
 
  private:
-  std::unique_ptr<FILE> file_ptr_;
+  std::unique_ptr<FILE,decltype(&fclose)> file_ptr_;
 
  public:
   using bytes = unsigned char;

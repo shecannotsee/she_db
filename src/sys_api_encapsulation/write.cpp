@@ -8,18 +8,12 @@
 
 namespace she_db {
 namespace detail {
-write::write(const std::string& file_path) noexcept {
-  file_ptr_ = std::move(std::unique_ptr<FILE>(fopen(file_path.c_str(), "r")));
+write::write(const std::string& file_path) noexcept : file_ptr_(fopen(file_path.c_str(), "r"), &fclose) {
   if (file_ptr_ == NULL) {
     throw std::runtime_error("fopen error: " + file_path);
   }
 }
-write::~write() noexcept {
-  const auto fclose_result = fclose(file_ptr_.get());
-  if (fclose_result == EOF) {
-    throw std::runtime_error("fclose error");
-  }
-}
+
 void write::content(const std::vector<bytes>& data, const uint32_t offset) const noexcept {
   // Move the file pointer to the specified location
   seek::move(file_ptr_.get(), offset);

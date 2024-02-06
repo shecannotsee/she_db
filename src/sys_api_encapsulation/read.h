@@ -17,7 +17,7 @@ class read {
  public:
   read() = delete;
   explicit read(const std::string&) noexcept;
-  ~read() noexcept;
+  ~read() = default;
   // copy:off
   read(const read&)            = delete;
   read& operator=(const read&) = delete;
@@ -26,7 +26,7 @@ class read {
   read& operator=(read&&) = default;
 
  private:
-  std::unique_ptr<FILE> file_ptr_;
+  std::unique_ptr<FILE,decltype(&fclose)> file_ptr_;
 
  public:
   using bytes = unsigned char;
