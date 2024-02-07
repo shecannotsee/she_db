@@ -34,7 +34,7 @@ static std::string create_file() noexcept {
     oss << std::put_time(localTime, "%Y_%m_%d_%H_%M_%S");  // 年月日时分秒
     oss << "_";                                            // 添加下划线分隔
     oss << std::chrono::duration_cast<std::chrono::milliseconds>(now.time_since_epoch()).count() % 1000;  // 毫秒
-    return oss.str();
+    return oss.str() + ".she_db";
   }();
   const std::string file_path = prefix_path + file_name;
 
