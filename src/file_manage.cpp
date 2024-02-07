@@ -24,7 +24,7 @@ file_manage::file_manage() : read_(nullptr), write_(nullptr) {
     if (static_cast<file_type>(content.at(0)) != file_type::initial) {
       goto init_false;
     }
-    if (content.at(1) != 0x0e) {
+    if (content.at(1) != static_cast<uint8_t>(initial_file_name.size())) {
       goto init_false;
     }
     for (int index = 0; index < initial_file_name.size(); ++index) {
@@ -37,7 +37,8 @@ file_manage::file_manage() : read_(nullptr), write_(nullptr) {
   }
   if (!init) {
     const auto write_something = std::make_unique<detail::write>(initial_file_path);
-    std::vector<uint8_t> initial_file_info{0x01, 0x0e};
+    std::vector<uint8_t> initial_file_info{static_cast<uint8_t>(file_type::initial),
+                                           static_cast<uint8_t>(initial_file_name.size())};
     for (const auto& b : initial_file_name) {
       initial_file_info.emplace_back(static_cast<uint8_t>(b));
     }
