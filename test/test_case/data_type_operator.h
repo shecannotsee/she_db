@@ -5,14 +5,9 @@
 #ifndef T_DATA_TYPE_OPERATOR_H
 #define T_DATA_TYPE_OPERATOR_H
 
-
-
 class data_type_operator {
-public:
+ public:
   static bool read_and_write_data();
-
 };
 
-
-
-#endif //T_DATA_TYPE_OPERATOR_H
+#endif  // T_DATA_TYPE_OPERATOR_H

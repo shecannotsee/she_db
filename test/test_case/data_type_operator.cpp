@@ -4,9 +4,9 @@
 
 #include "data_type_operator.h"
 
-#include <string>
-
 #include <she_db.h>
+
+#include <string>
 
 bool data_type_operator::read_and_write_data() {
   std::string file_path = she_db::prefix_path + she_db::create_file<1>("file_read_and_write_data");

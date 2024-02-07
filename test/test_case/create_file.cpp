@@ -24,6 +24,7 @@ bool check_file_size(const std::string& file_name) {
 }  // namespace
 
 bool create_file::test() {
-  const auto file_name = she_db::create_file<5>("file_create");
-  return check_file_size<5 * 1024>(she_db::prefix_path + file_name);
+  constexpr int n_k = 5;
+  const auto file_name = she_db::create_file<n_k>("file_create");
+  return check_file_size<n_k * 1024>(she_db::prefix_path + file_name);
 }
