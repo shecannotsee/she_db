@@ -6,6 +6,7 @@
 
 #include <she_db.h>
 
+#include <iostream>
 #include <string>
 
 bool data_type_operator::read_and_write_data() {

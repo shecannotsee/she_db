@@ -6,8 +6,10 @@
 
 #include <print_color.h>
 #include <she_db.h>
-#include <sys_api_encapsulation/read.h>
 #include <sys_api_encapsulation/file.h>
+#include <sys_api_encapsulation/read.h>
+
+#include <iostream>
 
 bool read::test() {
   using namespace she_test::print_color;
