@@ -11,6 +11,7 @@
 #include <sstream>  // time to file name
 #include <stdexcept>
 #include <string>
+#include <thread>
 
 #include "common_define.h"
 
@@ -68,6 +69,7 @@ static std::string create_file() noexcept {
     throw std::runtime_error("fclose error");
   }
 
+  std::this_thread::sleep_for(std::chrono::milliseconds(1));
   return file_name;
 }
 
