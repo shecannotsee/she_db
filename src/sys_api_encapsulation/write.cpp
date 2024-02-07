@@ -8,7 +8,7 @@
 
 namespace she_db {
 namespace detail {
-write::write(const std::string& file_path) noexcept : file_ptr_(fopen(file_path.c_str(), "r"), &fclose) {
+write::write(const std::string& file_path) noexcept : file_ptr_(fopen(file_path.c_str(), "r+"), &fclose) {
   if (file_ptr_ == NULL) {
     throw std::runtime_error("fopen error: " + file_path);
   }
