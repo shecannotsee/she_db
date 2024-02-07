@@ -8,6 +8,8 @@
 #include <memory>
 #include <type_traits>
 
+#include "common_define.h"
+#include "create_file.h"
 #include "sys_api_encapsulation/file.h"
 #include "sys_api_encapsulation/read.h"
 #include "sys_api_encapsulation/write.h"
@@ -58,7 +60,39 @@ class file_manage {
  public:
   // interface
   template <typename... t>
-  void add_table() {
+  void add_table(const std::string& table_name) {
+    uint32_t offset = 0;
+    /* get offset */ {
+      auto read_something      = std::make_unique<detail::read>(prefix_path + initial_file_name);
+      constexpr int type_index = 0;
+      constexpr int len_index  = 1;
+      // read
+      auto type_and_len = read_something->get(offset, 2);
+      while (type_and_len.at(type_index) != 0) {
+        offset += static_cast<decltype(offset)>(type_and_len.at(len_index)) + 2;
+        type_and_len = read_something->get(offset, 2);
+      }
+    }
+    /* write table file information */ {
+      auto write_something = std::make_unique<detail::write>(prefix_path + initial_file_name);
+      std::vector<uint8_t> content;
+      /* Add data to the content */ {
+        auto table_struct_info = create_file<1>();
+        content.emplace_back(static_cast<uint8_t>(file_type::table_struct));
+        content.emplace_back(static_cast<uint8_t>(table_struct_info.size()));
+        for (const auto& c : table_struct_info) {
+          content.emplace_back(static_cast<uint8_t>(c));
+        }
+        auto data_storage_info = create_file<4>();
+        content.emplace_back(static_cast<uint8_t>(file_type::data_storage));
+        content.emplace_back(static_cast<uint8_t>(data_storage_info.size()));
+        for (const auto& c : data_storage_info) {
+          content.emplace_back(static_cast<uint8_t>(c));
+        }
+      }
+      write_something->content(content, offset);
+    }
+
     std::vector<int> sizes;
 #if __cplusplus >= 201703L
     (sizes.push_back(t::size), ...);  // 将每个参数的大小添加到向量中
