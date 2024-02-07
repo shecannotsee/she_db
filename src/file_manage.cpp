@@ -8,14 +8,11 @@
 #include "create_file.h"
 
 namespace she_db {
-file_manage::file_manage() : p_file_(fopen((prefix_path + initial_file_name).c_str(), "r"), &fclose) {
-  if (!p_file_) {
-    p_file_ = std::move(std::unique_ptr<FILE, decltype(&fclose)>(
-        fopen((create_file<1>(prefix_path + initial_file_name)).c_str(), "rb+"), &fclose));
-  }
-  if (!p_file_) {
-    throw std::runtime_error("File pointer is null," + (prefix_path + initial_file_name));
+
+file_manage::file_manage() : read_(nullptr), write_(nullptr) {
+  const std::string initial_file_path = prefix_path + initial_file_name;
+  if (!detail::file::exist(initial_file_path)) {
+    create_file<1>(initial_file_path);
   }
 }
-
 }  // namespace she_db

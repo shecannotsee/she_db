@@ -6,6 +6,11 @@
 #define FILE_MANAGE_H
 
 #include <memory>
+#include <type_traits>
+
+#include "sys_api_encapsulation/file.h"
+#include "sys_api_encapsulation/read.h"
+#include "sys_api_encapsulation/write.h"
 
 namespace she_db {
 
@@ -35,10 +40,39 @@ class file_manage {
   file_manage& operator=(file_manage&&) = delete;
 
  private:
-  std::unique_ptr<FILE, decltype(&fclose)> p_file_;
+  std::unique_ptr<detail::read> read_;
+  std::unique_ptr<detail::write> write_;
+
+#if __cplusplus >= 201103L && __cplusplus < 201703L
+  template <typename... Args>
+  void add_sizes_impl(std::vector<int>& sizes, Args... args) {
+    (sizes.push_back(args), ...);
+  }
+
+  template <typename... t>
+  void add_size(std::vector<int>& sizes) {
+    add_sizes_impl(sizes, t::size...);
+  }
+#endif
 
  public:
   // interface
+  template <typename... t>
+  void add_table() {
+    std::vector<int> sizes;
+#if __cplusplus >= 201703L
+    (sizes.push_back(t::size), ...);  // 将每个参数的大小添加到向量中
+#else
+    add_size<t...>(sizes);
+#endif
+
+    // 可以在这里进行其他操作，比如输出大小
+    printf("Sizes of parameters: ");
+    for (auto size : sizes) {
+      printf("%d ", size);
+    }
+    printf("\n");
+  }
 };
 
 }  // namespace she_db
