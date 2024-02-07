@@ -60,7 +60,7 @@ class file_manage {
  public:
   // interface
   template <typename... t>
-  void add_table(const std::string& table_name) {
+  void create_table(const std::string& table_name) {
     uint32_t offset = 0;
     /* get offset */ {
       auto read_something      = std::make_unique<detail::read>(prefix_path + initial_file_name);
