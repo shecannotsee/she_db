@@ -19,12 +19,12 @@ bool check_file_size(const std::string& file_name) {
   }
 
   // check size
-  return file_stat.st_size == file_size;
+  return file_stat.st_size == file_size * 1024;
 }
 }  // namespace
 
 bool create_file::test() {
   constexpr int n_k = 5;
   const auto file_name = she_db::create_file<n_k>("file_create");
-  return check_file_size<n_k * 1024>(she_db::prefix_path + file_name);
+  return check_file_size<n_k>(she_db::prefix_path + file_name);
 }
